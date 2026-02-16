@@ -2,20 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: helm-deploy
+  labels:
+    app: devops
 spec:
-  replicas: {{ .Values.replicaCount }} #1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: devops
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
   template:
     metadata:
       labels:
         app: devops
     spec:
+      imagePullSecrets:
+        - name: helm
       containers:
         - name: my-nodeapp
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }} #myjavapp:latest 
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.containerPort }}
-      imagePullSecrets:
-      - name: helm
