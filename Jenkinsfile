@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1' // Your AWS region
-        ECR_REPO = '881490104063.dkr.ecr.us-east-1.amazonaws.com/my_pvt_repo' // Your ECR repository URI
+        ECR_REPO = '460425808763.dkr.ecr.us-east-1.amazonaws.com/my_pvt_repo' // Your ECR repository URI
         IMAGE_TAG = "v${BUILD_NUMBER}" // Dynamic version based on build number
         EKS_CLUSTER_NAME = 'vgs_cluster' // Replace with your EKS cluster name
         KUBECONFIG_PATH = '/opt/kube/config' // Path to kubeconfig file
